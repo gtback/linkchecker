@@ -43,9 +43,8 @@ class LinkChecker(object):
         r = requests.get(url, proxies={"http":""})
 
         # TODO: deal with redirects
-
         if r.status_code != requests.codes.ok:
-            print r.status_code, url, "(FROM: ", self._origin_urls[url], ")"
+            print r.status_code, self._origin_urls[url], "->", url
             return
         page = r.text
 
@@ -69,8 +68,11 @@ class LinkChecker(object):
             if not path:
                 continue
 
+            tmpurl = url
+            if "." not in url and not url.endswith("/"):
+                tmpurl = url + "/"
 
-            new_url = urljoin(self.root_url, result.path)
+            new_url = urljoin(tmpurl, path)
 
             if new_url not in self._origin_urls:
                 #print url, "->", new_url

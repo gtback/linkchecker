@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Usage: python linkchecker.py http://localhost:4000 > res.txt
+"""
+
 import sys
 from urlparse import urlsplit, urljoin
 

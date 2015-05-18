@@ -56,6 +56,10 @@ class LinkChecker(object):
         for link in soup.find_all('a'):
             href = link.get('href')
 
+            # Avoid non-href <a> tags (like <a name="example" />)
+            if not href:
+                continue
+
             result = urlsplit(href)
 
             scheme = result.scheme or self.scheme
